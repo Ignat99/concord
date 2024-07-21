@@ -3,7 +3,7 @@ FROM node:12.10.0-stretch AS concord-truffle
 RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
 RUN apt-get update && apt-get -y install vim nano && \
     rm -rf /var/lib/apt/lists/* && \
-    npm i -g --unsafe-perm=true --allow-root truffle@5.6.5 && \
+    npm i -g --unsafe-perm=true --allow-root truffle@5.6.2 && \
     mkdir /truffle && \
     cd /truffle && \
     truffle init
