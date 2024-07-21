@@ -2,7 +2,7 @@
 
 # The build context should be the root of the repository.
 
-FROM maven:3.6.0-jdk-11 as ethrpc-builder
+FROM maven:3.6.0-jdk-11 as inkanrpc-builder
 
 # Copy the POM files (rarely changing).
 COPY ./tools/ethrpc/checkstyle.xml ./checkstyle.xml
@@ -28,17 +28,11 @@ RUN mvn -f ethrpc/pom.xml package
 FROM openjdk:11.0.4-jdk-slim-buster
 LABEL description="RPC Server for Ethereum API"
 
-RUN mkdir -p /usr/share/man/man1/
-RUN apt-get update
-RUN apt-get install ca-certificates-java openjdk-11-jre-headless -y
-
 WORKDIR /ethrpc
 COPY ./tools/ethrpc/src/main/resources/application.properties ./application.properties
-COPY --from=ethrpc-builder ./ethrpc/target/concord-ethrpc*.jar ./concord-ethrpc.jar
+# COPY --from=ethrpc-builder ./ethrpc/target/concord-ethrpc*.jar ./concord-ethrpc.jar
 
-ARG JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-
-CMD ["java", "-jar", "concord-ethrpc.jar"]
+CMD ["bash"]
 
 # Must match server.port in application.properties!
 EXPOSE 8545
