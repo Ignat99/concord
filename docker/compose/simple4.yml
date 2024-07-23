@@ -1,5 +1,29 @@
 version: '3'
 services:
+  supply-chain:
+    image: supply-chain:latest
+    build:
+      context: .
+    command: "npm run start:concord"
+    ports:
+      - 4200:4200
+    volumes:
+      - ../resources/supply-chain/contracts:/app/contracts
+      - ../resources/supply-chain/src/app/core/blockchain/:/app/src/app/core/blockchain/
+      - ../resources/supply-chain/migrations:/app/migrations
+      - ../resources/supply-chain/build:/app/build
+      - ../resources/supply-chain/truffle-config.js:/app/truffle-config.js
+      - ../resources/supply-chain/package.json:/app/package.json
+      - ../resources/supply-chain/verify:/app/verify
+    environment:
+      # Example
+      # - BC_URL=https://localhost.vmware.com/api/blockchains/<blockchain-id>
+      - BC_URL=https://supply-chain.vmware.com/api/blockchains/1
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    networks:
+      priv-eth-net1:
+
+
   concord-truffle:
     image: concord-truffle:latest
     tty: true
