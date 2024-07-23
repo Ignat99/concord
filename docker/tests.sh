@@ -5,8 +5,8 @@
 
 echo "Pulling samples repo.."
 # git clone https://github.com/vmware-samples/vmware-blockchain-samples.git
-cd /root/vmware-blockchain-samples/supply-chain
-git checkout tags/v0.1-concord
+# git checkout tags/v0.1-concord
+cd supply-chain
 
 docker login 192.168.1.101
 
@@ -19,8 +19,8 @@ docker push 192.168.1.101/library/supply-chain:latest
 exit 0
 
 echo "Startup Concord"
-#cd ../../
-cd /root/concord
+# cd ../../
+cd ../../concord
 docker-compose -f docker/compose/simple4.yml up -d
 
 attempt=0
